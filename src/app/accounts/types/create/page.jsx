@@ -8,6 +8,7 @@ import InputForm from "@/components/forms/InputForm"
 import { AlertContext } from "@/contexts/AlertProvider"
 
 import accountTypeControllers from "@/controllers/account.type.controllers"
+import Breadcrumb from "@/components/Breadcrumb"
 
 function Create() {
     const router = useRouter()
@@ -34,8 +35,9 @@ function Create() {
     }
 
     return (
-        <div className="mt-8" style={{width: 450}}>
+        <div className="mt-8 feed">
             <Form type={'Account Type'} title={'Create a new account type'} handleSubmit={handleSubmit}>
+                <Breadcrumb />
                 <InputForm
                     value={name}
                     type={'text'}

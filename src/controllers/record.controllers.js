@@ -1,19 +1,11 @@
 const createRecord = async ({
-    name,
-    type,
-    owner,
-    balance,
-    currency
+    owner, amount, account, category, subcategory
 }) => {
     try {
         const response = await fetch('/api/records/new', {
             method: 'POST',
             body: JSON.stringify({
-                name,
-                type,
-                owner,
-                balance,
-                currency
+                owner, amount, account, category, subcategory
             })
         })
 
@@ -26,21 +18,13 @@ const createRecord = async ({
 
 const updateRecord = async ({
     id,
-    name,
-    type,
-    owner,
-    balance,
-    currency
+    owner, amount, account, category, subcategory
 }) => {
     try {
         const response = await fetch(`/api/records/${id}`, {
             method: 'PATCH',
             body: JSON.stringify({
-                name,
-                type,
-                owner,
-                balance,
-                currency
+                owner, amount, account, category, subcategory
             })
         })
 

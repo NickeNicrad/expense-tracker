@@ -1,31 +1,40 @@
 import { connectToDB } from "@/utils/database";
 
+import Record from "@/models/record";
 import Account from "@/models/account";
 import Balance from "@/models/balance";
 
 export const POST = async (request) => {
-    const { owner, name, type, balance, currency } = await request.json();
+    const { owner, amount, account, category, subcategory } = await request.json();
+
+    console.log(owner, amount, account, category, subcategory)
 
     try {
-        if (!owner || !name || !type || !balance || !currency)
+        if (!owner || !amount || !account || !category || !subcategory)
             return new Response(JSON.stringify('Provide all information before to continue!'), {
-                status: 201
+                status: 400
             })
 
         await connectToDB()
 
-        const newAccount = new Account({
-            name,
-            type,
+        const newRecord = new Record({
             owner,
-            currency,
+            amount,
+            account,
+            category,
+            subcategory,
         })
 
-        const savedAccount = await newAccount.save()
+        const savedAccount = await Account.findByIdAndUpdate(account, { $inc: { balance: amount } }, { new: true })
+            .populate({
+                path: 'balances'
+            });
+            
+        const balanceAmount = parseFloat(savedAccount?.balance || 0) + parseFloat(amount)
 
         const newBalance = new Balance({
-            amount: balance,
-            account: newAccount?._id,
+            account,
+            amount: balanceAmount,
         })
 
         await newBalance.save()
@@ -34,7 +43,9 @@ export const POST = async (request) => {
 
         await savedAccount.save()
 
-        return new Response(JSON.stringify(savedAccount), {
+        const savedRecord = await newRecord.save()
+
+        return new Response(JSON.stringify(savedRecord), {
             status: 201
         })
     } catch (error) {

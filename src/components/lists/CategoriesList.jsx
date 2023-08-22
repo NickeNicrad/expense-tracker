@@ -1,7 +1,7 @@
 import EmptyList from "./EmptyList"
 import CategoryCard from "../cards/CategoryCard"
 
-const CategoriesList = ({data, handleEdit, handleDelete}) => {
+const CategoriesList = ({data=[], handleEdit, handleDelete}) => {
     if (!data?.length > 0)
         return (
             <EmptyList

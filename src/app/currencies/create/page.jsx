@@ -37,7 +37,7 @@ function Create() {
     }
 
     return (
-        <div className="mt-8" style={{width: 450}}>
+        <div className="mt-8 feed">
             <Form type={'Currency'} title={'Create a new currency'} handleSubmit={handleSubmit}>
                 <InputForm
                     type={'text'}

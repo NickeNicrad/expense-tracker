@@ -8,8 +8,8 @@ const BalanceSchema = new Schema({
     account: {
         type: Schema.Types.ObjectId,
         ref: 'Account'
-    },
-})
+    }
+}, { timestamps: true })
 
 const Balance = models.Balance || model("Balance", BalanceSchema)
 

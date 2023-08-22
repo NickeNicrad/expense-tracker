@@ -8,8 +8,8 @@ const SubCategorySchema = new Schema({
     category: {
         type: Schema.Types.ObjectId,
         ref: 'Category'
-    },
-})
+    }
+}, { timestamps: true })
 
 const SubCategory = models.SubCategory || model("SubCategory", SubCategorySchema)
 

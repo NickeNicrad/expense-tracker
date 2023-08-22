@@ -8,6 +8,7 @@ import Form from "@/components/forms/Form"
 import InputForm from "@/components/forms/InputForm"
 
 import categoryControllers from "@/controllers/category.controllers"
+import Breadcrumb from "@/components/Breadcrumb"
 
 function Create() {
     const router = useRouter()
@@ -23,8 +24,6 @@ function Create() {
         
         const response = await categoryControllers.createCategory(values);
 
-        console.log(response)
-
         if (!response?.error && response?.ok && response?.status === 201) {
             router.replace('/categories')
             alertHandler({ message: 'Success saved!', type: 'success', visible: true })
@@ -38,7 +37,8 @@ function Create() {
     }
 
     return (
-        <div className="mt-8" style={{width: 450}}>
+        <div className="mt-8 feed">
+            <Breadcrumb />
             <Form type={'Category'} title={'Create a new category'} handleSubmit={handleSubmit}>
                 <InputForm
                     type={'text'}

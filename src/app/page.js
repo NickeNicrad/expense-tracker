@@ -1,6 +1,6 @@
 import Feed from '@/components/Feed'
 
-export default function Home() {
+function Home() {
   return (
     <section className="w-full flex-center flex-col">
       <h1 className='bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl text-center'>
@@ -16,3 +16,5 @@ export default function Home() {
     </section>
   )
 }
+
+export default Home

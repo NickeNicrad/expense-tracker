@@ -3,29 +3,17 @@
 import Link from "next/link"
 import Image from "next/image"
 
-import Cookies from "js-cookie"
+import { useState } from "react"
 
-import { useEffect, useState } from "react"
-
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { signOut, useSession } from 'next-auth/react'
 
 function Nav() {
-  const pathName = usePathname()
-  const { data: session } = useSession()
+  const router = useRouter()
+  const pathname = usePathname()
+  const { data: session, status } = useSession()
 
   const [toggleDropdown, setToggleDropdown] = useState(false)
-
-  const checkIfLoggedIn = () => {
-    if (session?.user?.email)
-      return Cookies.set('loggedIn', true)
-    else
-      return Cookies.set('loggedIn', false)
-  }
-
-  useEffect(() => {
-    checkIfLoggedIn()
-  }, [session?.user?.email])
 
   return (
     <nav className="flex-between w-full mb-16 pt-3">
@@ -45,15 +33,6 @@ function Nav() {
           className="flex flex-1 items-center justify-between gap-8 sm:justify-end"
         >
           <div className="flex gap-4">
-            <Link
-              href="/records/create"
-              className="block shrink-0 rounded-full bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
-            >
-              <span className="sr-only">Plus</span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-            </Link>
             <button
               className="block shrink-0 rounded-full bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
             >
@@ -116,7 +95,7 @@ function Nav() {
       )}
 
       <div className="flex relative">
-        {session?.user ?
+        {status === 'authenticated' ?
           <div className="flex">
             {toggleDropdown && (
               <div className="dropdown">
@@ -139,7 +118,6 @@ function Nav() {
                   onClick={() => {
                     signOut()
                     setToggleDropdown(false)
-                    Cookies.set('loggedIn', false)
                   }}
                 >
                   Sign Out
@@ -148,14 +126,14 @@ function Nav() {
             )}
           </div> :
           <>
-            {pathName === '/auth/signup' && (
+            {pathname === '/auth/signup' && (
               <Link
                 href={'/auth/signin'}
                 className="black_btn">
                 Sign In
               </Link>
             )}
-            {pathName === '/auth/signin' && (
+            {pathname === '/auth/signin' && (
               <Link
                 href={'/auth/signup'}
                 className="black_btn">

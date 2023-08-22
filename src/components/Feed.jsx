@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import AccountsList from './lists/AccountsList';
 
 import userControllers from '@/controllers/user.controllers';
+import Breadcrumb from './Breadcrumb';
 
 function Feed() {
   const {data: session} = useSession();
@@ -23,6 +24,7 @@ function Feed() {
 
   return (
     <section className='feed'>
+      <Breadcrumb title={'Create Account'} url={'/accounts/create'} type={'create'} />
       <AccountsList
         data={accounts}
       />

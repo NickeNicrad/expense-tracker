@@ -7,7 +7,7 @@ import User from "@/models/user";
 
 import { connectToDB } from "@/utils/database";
 
-const handler = NextAuth({
+export const nextAuthOptions = {
     providers: [
         Providers({
             id: 'authCredentials',
@@ -83,6 +83,8 @@ const handler = NextAuth({
             }
         }
     }
-})
+}
+
+const handler = NextAuth(nextAuthOptions)
 
 export { handler as GET, handler as POST }

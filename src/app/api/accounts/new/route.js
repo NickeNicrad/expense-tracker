@@ -6,8 +6,6 @@ import Balance from "@/models/balance";
 export const POST = async (request) => {
     const { owner, name, type, balance, currency } = await request.json();
 
-    console.log(type, balance)
-
     try {
         if (!owner || !name || !type || !balance || !currency)
             return new Response(JSON.stringify('Provide all information before to continue!'), {
@@ -20,6 +18,7 @@ export const POST = async (request) => {
             name,
             type,
             owner,
+            balance,
             currency,
         })
 

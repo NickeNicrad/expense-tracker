@@ -13,14 +13,6 @@ export const GET = async (request, { params }) => {
                 path: 'owner',
                 select: 'name image'
             })
-            .populate({
-                path: 'balances',
-                options: {
-                    sort: { createdAt: -1 },
-                    limit: 1,
-                },
-                justOne: true,
-            })
 
         if (!account)
             return new Response('Account not found', {

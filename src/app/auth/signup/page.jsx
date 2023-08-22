@@ -29,8 +29,6 @@ function SignUp() {
             body: JSON.stringify(credentials)
         })
 
-        const data = await response.json()
-
         if (!response.error && response.ok && response.status === 201) {
             router.replace('/auth/signin')
             alertHandler({

@@ -4,8 +4,8 @@ const AccountTypeSchema = new Schema({
     name: {
         type: String,
         required: [true, 'Name is required!'],
-    },
-})
+    }
+}, { timestamps: true })
 
 const AccountType = models.AccountType || model("AccountType", AccountTypeSchema)
 

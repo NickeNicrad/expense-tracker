@@ -12,9 +12,9 @@ const NotificationSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    },
-})
+    }
+}, { timestamps: true })
 
-const Balance = models.Balance || model("Balance", NotificationSchema)
+const Notification = models.Notification || model("Notification", NotificationSchema)
 
-export default Balance
+export default Notification

@@ -5,6 +5,10 @@ const AccountSchema = new Schema({
         type: String,
         required: [true, 'Name is required!'],
     },
+    balance: {
+        type: Number,
+        required: [true, 'Balance is required!'],
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User'
@@ -18,7 +22,7 @@ const AccountSchema = new Schema({
         ref: 'Currency'
     },
     balances: [{ type: Schema.Types.ObjectId, ref: 'Balance' }]
-})
+}, { timestamps: true })
 
 const Account = models.Account || model("Account", AccountSchema)
 

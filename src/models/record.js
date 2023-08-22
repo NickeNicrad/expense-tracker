@@ -21,11 +21,7 @@ const RecordSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'SubCategory'
     },
-    date: {
-        type: Date,
-        default: Date.now
-    }
-})
+}, { timestamps: true })
 
 const Record = models.Record || model("Record", RecordSchema)
 

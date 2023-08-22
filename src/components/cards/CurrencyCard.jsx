@@ -3,21 +3,21 @@ import React from 'react'
 function CurrencyCard({item, handleEdit, handleDelete}) {
     return (
         <div className='prompt_card'>
-            <div class="flex items-center justify-between">
+            <div className="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-500">
+                    <p className="text-sm text-gray-500">
                         {item?.name}
                     </p>
 
-                    <p class="text-xl font-medium text-gray-900">
+                    <p className="text-xl font-medium text-gray-900">
                         {item?.code}
                     </p>
                 </div>
 
-                <span class="rounded-full bg-blue-100 p-3 text-blue-600">
+                <span className="rounded-full bg-blue-100 p-3 text-blue-600">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-8 w-8"
+                        className="h-8 w-8"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"

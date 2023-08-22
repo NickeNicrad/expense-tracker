@@ -3,13 +3,14 @@
 import Image from "next/image"
 
 import { useSession } from "next-auth/react"
+import Link from "next/link"
 
 function AccountCard({item, handleTagClick, handleEdit, handleDelete}) {
   const {data: session} = useSession()
 
   return (
     <div className="prompt_card">
-      <article className="flex items-end justify-between rounded-lg">
+      <Link className="flex items-end justify-between rounded-lg" href={`/accounts/${item?._id}`}>
         <div className="flex items-center gap-4">
           <div className="rounded-full bg-gray-100 text-gray-600">
             <Image
@@ -27,7 +28,7 @@ function AccountCard({item, handleTagClick, handleEdit, handleDelete}) {
             </p>
 
             <p className="text-xl font-medium text-gray-900">
-              {item?.balances?.amount} <span className="font-light text-sm">{item?.currency?.code}</span>
+              {item?.balance} <span className="font-light text-sm">{item?.currency?.code}</span>
             </p>
           </div>
         </div>
@@ -57,7 +58,7 @@ function AccountCard({item, handleTagClick, handleEdit, handleDelete}) {
             </span>
           </div>
         </div>
-      </article>
+      </Link>
     </div>
   )
 }

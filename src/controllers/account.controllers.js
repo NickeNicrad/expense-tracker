@@ -94,10 +94,24 @@ const getAccounts = async () => {
     }
 }
 
+const getAccountRecords = async ({id}) => {
+    try {
+        const response = await fetch(`/api/accounts/${id}/records`)
+
+        const data = await response.json()
+
+        return data
+    } catch (error) {
+        console.log(error?.message)
+        return error
+    }
+}
+
 export default {
     getAccounts,
     deleteAccount,
     updateAccount,
     createAccount,
     getAccountById,
+    getAccountRecords,
 }

@@ -8,8 +8,8 @@ const CurrencySchema = new Schema({
     code: {
         type: String,
         required: [true, 'Code is required!'],
-    }
-})
+    },
+}, { timestamps: true })
 
 const Currency = models.Currency || model("Currency", CurrencySchema)
 

@@ -1,5 +1,7 @@
 import { Schema, model, models } from 'mongoose'
 
+const defaultImage = 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+
 const UserSchema = new Schema({
     name: {
         type: String,
@@ -22,9 +24,10 @@ const UserSchema = new Schema({
         // match: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "Invalid password, it should contain 8-20 alpha-numeric letters and be unique!"]
     },
     image: {
-        type: String
+        type: String,
+        default: defaultImage
     },
-})
+}, { timestamps: true })
 
 const User = models.User || model("User", UserSchema)
 

@@ -1,20 +1,17 @@
 'use client'
 
+import { useContext, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
-import { useContext, useState, useEffect } from "react"
 import { AlertContext } from "@/contexts/AlertProvider"
 
 import Form from "@/components/forms/Form"
 import InputForm from "@/components/forms/InputForm"
-import SelectInput from "@/components/forms/SelectInput"
 
-import categoryControllers from "@/controllers/category.controllers"
 import subcategoryControllers from "@/controllers/subcategory.controllers"
 
 function Create() {
     const router = useRouter()
     const params = useParams()
-    const [category, setCategory] = useState(null)
     const [values, setValues] = useState({
         name: '',
         category: ''
@@ -27,7 +24,7 @@ function Create() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        const response = await subcategoryControllers.createSubCategory(values);
+        const response = await subcategoryControllers.createSubCategory({...values, category: params?.id});
 
         if (!response?.error && response?.ok && response?.status === 201) {
             router.replace('/categories')
@@ -40,16 +37,6 @@ function Create() {
             })
         }
     }
-
-    const fetchCategory = async ({id}) => {
-        const data = await categoryControllers.getCategoryById({id})
-
-        setCategory(data)
-    }
-
-    useEffect(() => {
-        if (params?.id) fetchCategory({id: params?.id})
-    }, [params?.id])
 
     return (
         <div className="mt-8" style={{width: 450}}>

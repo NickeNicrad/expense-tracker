@@ -6,6 +6,7 @@ import SessProvider from '@/contexts/SessProvider'
 import DataProvider from '@/contexts/DataProvider'
 import AlertProvider from '@/contexts/AlertProvider'
 import AlertCard from '@/components/cards/AlertCard'
+import ProtectedClient from '@/components/ProtectedClient'
 
 export const metadata = {
   title: 'Expense Tracker',
@@ -26,7 +27,9 @@ function Layout({children}) {
 
               <main className='app'>
                 <Nav />
-                {children}
+                <ProtectedClient>
+                  {children}
+                </ProtectedClient>
               </main>
             </AlertProvider>
           </SessProvider>

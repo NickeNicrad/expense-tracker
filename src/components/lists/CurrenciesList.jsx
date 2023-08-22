@@ -1,7 +1,7 @@
 import EmptyList from "./EmptyList"
 import CurrencyCard from "../cards/CurrencyCard"
 
-const CurrenciesList = ({data, handleEdit, handleDelete}) => {
+const CurrenciesList = ({data=[], handleEdit, handleDelete}) => {
     if (!data?.length > 0)
         return (
             <EmptyList

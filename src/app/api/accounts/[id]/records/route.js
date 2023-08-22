@@ -1,6 +1,6 @@
 import { connectToDB } from "@/utils/database";
 
-import Account from "@/models/account";
+import Record from "@/models/record";
 
 export const GET = async (request, { params }) => {
     try {
@@ -11,15 +11,11 @@ export const GET = async (request, { params }) => {
                 status: 201
             })
 
-        const userAccounts = await Account.find({owner: params?.id})
-            .populate('type')
-            .populate('currency')
-            .populate({
-                path: 'owner',
-                select: 'name image'
-            })
+        const accountRecords = await Record.find({account: params?.id})
+            .populate({path: 'category', select: 'name'})
+            .populate({path: 'subcategory', select: 'name'})
 
-        return new Response(JSON.stringify(userAccounts), {
+        return new Response(JSON.stringify(accountRecords), {
             status: 200
         });
     } catch (error) {

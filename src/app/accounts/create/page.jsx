@@ -12,6 +12,7 @@ import SelectInput from "@/components/forms/SelectInput"
 import accountControllers from "@/controllers/account.controllers"
 import currencyControllers from "@/controllers/currency.controllers"
 import accountTypeControllers from "@/controllers/account.type.controllers"
+import Breadcrumb from "@/components/Breadcrumb"
 
 function Create() {
     const router = useRouter()
@@ -83,8 +84,9 @@ function Create() {
     }, [])
 
     return (
-        <div className="mt-8" style={{width: 450}}>
+        <div className="mt-8 feed">
             <Form type={'Account'} title={'Create a new account'} handleSubmit={handleSubmit}>
+                <Breadcrumb />
                 <InputForm
                     type={'text'}
                     required={true}
