@@ -8,6 +8,12 @@ $ npm install
 start server
 $ next dev
 
+server port
+3000
+
+server host
+http://localhost:3000
+
 For the first time you'll be redirected to sign in page, click on sign up button in the navbar to create a new user account.
 
 To create an account you only need to provide name, email, password and confirmation password.
