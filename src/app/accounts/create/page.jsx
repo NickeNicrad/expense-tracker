@@ -1,18 +1,19 @@
 "use client"
 
-import { useEffect, useState, useContext } from "react"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
+import { useState, useContext } from "react"
+
 import { AlertContext } from "@/contexts/AlertProvider"
 
 import Form from "@/components/forms/Form"
+import Breadcrumb from "@/components/Breadcrumb"
 import InputForm from "@/components/forms/InputForm"
 import SelectInput from "@/components/forms/SelectInput"
 
-import accountControllers from "@/controllers/account.controllers"
-import currencyControllers from "@/controllers/currency.controllers"
-import accountTypeControllers from "@/controllers/account.type.controllers"
-import Breadcrumb from "@/components/Breadcrumb"
+import { useCreateAccount } from "@/hooks/useAccountData"
+import { useGetCurrencies } from "@/hooks/useCurrencyData"
+import { useGetAccountTypes } from "@/hooks/useAccountTypeData"
 
 function Create() {
     const router = useRouter()
@@ -20,12 +21,16 @@ function Create() {
     const [values, setValues] = useState({
         name: '',
         type: '',
+        limit: '',
         balance: '',
         currency: '',
     })
-    const [currencies, setCurrencies] = useState([])
-    const [accountTypes, setAccountTypes] = useState([])
+
     const { alertHandler } = useContext(AlertContext)
+
+    const { data: currencies } = useGetCurrencies()
+    const { data: accountTypes } = useGetAccountTypes()
+    const { mutateAsync: createAccount } = useCreateAccount({id: session?.user?.id})
 
     const handleChange = (input) =>  (e) => {
         setValues(prev => ({...prev, [input]: e.target.value}))
@@ -43,15 +48,10 @@ function Create() {
                 message: 'Fill all fields before to continue',
             })
 
-        const response = await accountControllers.createAccount({
-            type: values.type,
-            name: values.name,
-            balance: values.balance,
-            owner: session?.user?.id,
-            currency: values.currency
+        const response = await createAccount({
+            ...values,
+            owner: session?.user?.id
         })
-
-        console.log(response)
 
         if (response?.ok && response?.status === 201) {
             router.replace('/')
@@ -63,30 +63,12 @@ function Create() {
                 message: `${response?.error}`,
             })
         }
-
     }
-
-    const fetchCurrencies = async () => {
-        const data = await currencyControllers.getCurrencies()
-
-        setCurrencies(data)
-    }
-
-    const fetchAccountTypes = async () => {
-        const data = await accountTypeControllers.getAccountTypes()
-
-        setAccountTypes(data)
-    }
-
-    useEffect(() => {
-        fetchCurrencies()
-        fetchAccountTypes()
-    }, [])
 
     return (
-        <div className="mt-8 feed">
+        <div className="feed">
+            {/* <Breadcrumb /> */}
             <Form type={'Account'} title={'Create a new account'} handleSubmit={handleSubmit}>
-                <Breadcrumb />
                 <InputForm
                     type={'text'}
                     required={true}
@@ -100,6 +82,13 @@ function Create() {
                     value={values.balance}
                     placeholder={'Balance'}
                     onChange={handleChange('balance')}
+                />
+                <InputForm
+                    type={'number'}
+                    required={true}
+                    value={values.limit}
+                    placeholder={'Limit'}
+                    onChange={handleChange('limit')}
                 />
                 <SelectInput
                     data={currencies}

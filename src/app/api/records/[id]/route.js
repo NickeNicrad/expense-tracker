@@ -13,7 +13,7 @@ export const GET = async (request, { params }) => {
             .populate('currency')
 
         if (!account)
-            return new Response('Account not found', {
+            return new Response(JSON.stringify('Account not found!'), {
                 status: 404
             })
 
@@ -32,7 +32,7 @@ export const GET = async (request, { params }) => {
     } catch (error) {
         console.log(error?.message)
         
-        return new Response('Failed to fetch account', {
+        return new Response(JSON.stringify('Failed to fetch account!'), {
             status: 500
         })
     }
@@ -50,7 +50,7 @@ export const PATCH = async (request, { params }) => {
             .populate('currency')
 
         if (!accountExist)
-            return new Response('Account not found', {
+            return new Response(JSON.stringify('Account not found!'), {
                 status: 404
             })
 
@@ -68,7 +68,7 @@ export const PATCH = async (request, { params }) => {
     } catch (error) {
         console.log(error?.message)
         
-        return new Response('Failed to update account', {
+        return new Response(JSON.stringify('Failed to update account!'), {
             status: 500
         })
     }
@@ -80,13 +80,13 @@ export const DELETE = async (request, { params }) => {
 
         await Account.findByIdAndDelete(params?.id)
 
-        return new Response('Account deleted', {
+        return new Response(JSON.stringify('Account deleted!'), {
             status: 200
         })
     } catch (error) {
         console.log(error?.message)
         
-        return new Response('Failed to delete account', {
+        return new Response(JSON.stringify('Failed to delete account!'), {
             status: 500
         })
     }

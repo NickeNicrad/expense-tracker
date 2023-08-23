@@ -4,16 +4,23 @@ import Link from "next/link"
 import Image from "next/image"
 
 import { useState } from "react"
-
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { signOut, useSession } from 'next-auth/react'
 
+import NotificationsList from "./lists/NotificationsList"
+
+import { useGetUserNotifications } from "@/hooks/useUserData"
+
 function Nav() {
-  const router = useRouter()
   const pathname = usePathname()
   const { data: session, status } = useSession()
 
-  const [toggleDropdown, setToggleDropdown] = useState(false)
+  const { data: notifications, isLoading } = useGetUserNotifications({ id: session?.user?.id })
+
+  const [toggleDropdown, setToggleDropdown] = useState({
+    name: '',
+    visible: false
+  })
 
   return (
     <nav className="flex-between w-full mb-16 pt-3">
@@ -32,9 +39,25 @@ function Nav() {
         <div
           className="flex flex-1 items-center justify-between gap-8 sm:justify-end"
         >
-          <div className="flex gap-4">
+          <Link
+            href={'/accounts/create'}
+            className="block shrink-0 rounded-full bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
+          >
+            <span className="sr-only">Plus</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+          </Link>
+
+          <div className="relative">
             <button
               className="block shrink-0 rounded-full bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
+              aria-expanded="false"
+              onClick={() => setToggleDropdown(prev => ({
+                ...prev,
+                name: 'notification',
+                visible: !prev.visible
+              }))}
             >
               <span className="sr-only">Notifications</span>
               <svg
@@ -52,11 +75,21 @@ function Nav() {
                 />
               </svg>
             </button>
+
+            {toggleDropdown.name === 'notification' && toggleDropdown.visible && (
+              <div className="absolute top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-gray-900/5">
+                <NotificationsList data={notifications} isLoading={isLoading} />
+              </div>
+            )}
           </div>
 
           <button
             type="button"
-            onClick={() => setToggleDropdown(prev => !prev)}
+            onClick={() => setToggleDropdown(prev => ({
+              ...prev,
+              name: 'profile',
+              visible: !prev.visible
+            }))}
             className="group flex shrink-0 items-center rounded-lg transition"
           >
             <span className="sr-only">Menu</span>
@@ -97,19 +130,25 @@ function Nav() {
       <div className="flex relative">
         {status === 'authenticated' ?
           <div className="flex">
-            {toggleDropdown && (
-              <div className="dropdown">
+            {toggleDropdown.name === 'profile' && toggleDropdown.visible && (
+              <div className="dropdown absolute top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-gray-900/5">
                 <Link
                   href="/profile"
                   className="dropdown_link"
-                  onClick={() => setToggleDropdown(false)}
+                  onClick={() => setToggleDropdown({visible: false})}
                 >
                   My Profile
                 </Link>
                 <Link
+                  href="/settings"
+                  className="dropdown_link"
+                >
+                  Settings
+                </Link>
+                <Link
                   href="/accounts/create"
                   className="dropdown_link"
-                  onClick={() => setToggleDropdown(false)}
+                  onClick={() => setToggleDropdown({visible: false})}
                 >
                   Create Account
                 </Link>
@@ -117,7 +156,7 @@ function Nav() {
                   className="mt-4 w-full black_btn"
                   onClick={() => {
                     signOut()
-                    setToggleDropdown(false)
+                    setToggleDropdown({visible: false})
                   }}
                 >
                   Sign Out

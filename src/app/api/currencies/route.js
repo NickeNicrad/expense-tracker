@@ -14,7 +14,7 @@ export const GET = async (request) => {
     } catch (error) {
         console.log(error?.message)
         
-        return new Response('Failed to fetch currencies', {
+        return new Response(JSON.stringify('Failed to fetch currencies!'), {
             status: 500
         });
     }

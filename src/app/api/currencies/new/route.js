@@ -28,7 +28,7 @@ export const POST = async (request) => {
     } catch (error) {
         console.log(error?.message);
         
-        return new NextResponse('Failed to create a new currency', {
+        return new NextResponse(JSON.stringify('Failed to create a new currency!'), {
             status: 500
         });
     }

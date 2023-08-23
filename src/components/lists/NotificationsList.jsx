@@ -1,8 +1,8 @@
 import Loader from "../Loader"
 import EmptyList from "./EmptyList"
-import CategoryCard from "../cards/CategoryCard"
+import NotificationCard from "../cards/NotificationCard"
 
-const CategoriesList = ({data=[], isLoading, handleEdit, handleDelete}) => {
+const NotificationsList = ({data=[], isLoading, handleDelete}) => {
     if (isLoading)
         return <Loader />
 
@@ -10,17 +10,16 @@ const CategoriesList = ({data=[], isLoading, handleEdit, handleDelete}) => {
         return (
             <EmptyList
                 title={'No items'}
-                description={'No categories are currently available.'}
+                description={'No notifications are currently available.'}
             />
         )
 
     return (
-        <div className='mt-10 prompt_layout'>
-            {data && data?.map((item) =>
-                <CategoryCard
+        <div className="p-4">
+            {data.length > 0 && data?.map((item) =>
+                <NotificationCard
                     item={item}
                     key={item?._id}
-                    handleEdit={handleEdit}
                     handleDelete={handleDelete}
                 />
             )}
@@ -28,4 +27,4 @@ const CategoriesList = ({data=[], isLoading, handleEdit, handleDelete}) => {
     )
 }
 
-export default CategoriesList
+export default NotificationsList

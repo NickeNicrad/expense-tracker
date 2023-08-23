@@ -1,7 +1,6 @@
 import { connectToDB } from "@/utils/database";
 
 import Account from "@/models/account";
-import Balance from "@/models/balance";
 
 export const GET = async (request) => {
     try {
@@ -29,7 +28,7 @@ export const GET = async (request) => {
     } catch (error) {
         console.log(error?.message)
         
-        return new Response('Failed to fetch accounts', {
+        return new Response(JSON.stringify('Failed to fetch accounts!'), {
             status: 500
         })
     }

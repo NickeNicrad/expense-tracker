@@ -1,8 +1,6 @@
-import React from 'react'
-
 function RecordCard({item}) {
     return (
-        <article className="flex items-end justify-between rounded-lg border border-gray-100 p-6">
+        <article className="flex items-end justify-between border-b border-gray-200 p-4">
             <div className="flex items-center gap-4">
                 <span className="hidden rounded-full bg-gray-100 p-2 text-gray-600 sm:block">
                     <svg
@@ -22,10 +20,10 @@ function RecordCard({item}) {
                 </span>
 
                 <div>
-                    <p className="text-lg text-gray-600">
+                    <p className="text-md text-gray-600">
                         {item?.subcategory?.name} ({item?.category?.name})
                     </p>
-                    <p className={`text-xl font-medium text-${item?.amount < 0 ? 'red' : 'green'}-500`}>
+                    <p className={`text-lg font-medium text-${item?.amount < 0 ? 'red' : 'green'}-500`}>
                         {item?.amount > 0 && '+'}{item?.amount} <span className='text-sm'>USD</span>
                     </p>
                 </div>

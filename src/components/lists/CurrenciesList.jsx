@@ -1,7 +1,11 @@
+import Loader from "../Loader"
 import EmptyList from "./EmptyList"
 import CurrencyCard from "../cards/CurrencyCard"
 
-const CurrenciesList = ({data=[], handleEdit, handleDelete}) => {
+const CurrenciesList = ({data=[], isLoading, handleEdit, handleDelete}) => {
+    if (isLoading)
+        return <Loader />
+
     if (!data?.length > 0)
         return (
             <EmptyList

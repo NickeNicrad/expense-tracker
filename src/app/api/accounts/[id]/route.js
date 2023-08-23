@@ -15,7 +15,7 @@ export const GET = async (request, { params }) => {
             })
 
         if (!account)
-            return new Response('Account not found', {
+            return new Response(JSON.stringify('Account not found'), {
                 status: 404
             })
 
@@ -25,7 +25,7 @@ export const GET = async (request, { params }) => {
     } catch (error) {
         console.log(error?.message)
         
-        return new Response('Failed to fetch account', {
+        return new Response(JSON.stringify('Failed to fetch account'), {
             status: 500
         })
     }

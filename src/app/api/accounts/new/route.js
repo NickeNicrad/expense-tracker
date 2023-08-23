@@ -4,12 +4,12 @@ import Account from "@/models/account";
 import Balance from "@/models/balance";
 
 export const POST = async (request) => {
-    const { owner, name, type, balance, currency } = await request.json();
+    const { owner, name, type, limit, balance, currency } = await request.json();
 
     try {
         if (!owner || !name || !type || !balance || !currency)
             return new Response(JSON.stringify('Provide all information before to continue!'), {
-                status: 201
+                status: 400
             })
 
         await connectToDB()
@@ -18,6 +18,7 @@ export const POST = async (request) => {
             name,
             type,
             owner,
+            limit,
             balance,
             currency,
         })
@@ -41,7 +42,7 @@ export const POST = async (request) => {
     } catch (error) {
         console.log(error?.message)
         
-        return new Response('Failed to create a new account', {
+        return new Response(JSON.stringify('Failed to create a new account'), {
             status: 500
         })
     }

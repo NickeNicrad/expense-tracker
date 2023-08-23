@@ -9,6 +9,10 @@ const AccountSchema = new Schema({
         type: Number,
         required: [true, 'Balance is required!'],
     },
+    limit: {
+        type: Number,
+        default: 0
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User'

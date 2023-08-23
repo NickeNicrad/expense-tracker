@@ -1,7 +1,11 @@
-import AccountCard from "../cards/AccountCard"
+import Loader from "../Loader"
 import EmptyList from "./EmptyList"
+import AccountCard from "../cards/AccountCard"
 
-const AccountsList = ({data=[], handleEdit, handleDelete, handleTagClick}) => {
+const AccountsList = ({data=[], isLoading, handleEdit, handleDelete, handleTagClick}) => {
+  if (isLoading)
+    return <Loader />
+
   if (!data?.length > 0)
     return (
       <EmptyList
@@ -11,7 +15,7 @@ const AccountsList = ({data=[], handleEdit, handleDelete, handleTagClick}) => {
     )
 
   return (
-    <div className='mt-10 prompt_layout'>
+    <div className='prompt_layout'>
       {data.length > 0 && data?.map((item) =>
         <AccountCard
           item={item}

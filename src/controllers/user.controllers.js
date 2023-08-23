@@ -81,10 +81,24 @@ const getUserAccounts = async ({id}) => {
     }
 }
 
+const getUserNotifications = async ({id}) => {
+    try {
+        const response = await fetch(`/api/users/${id}/notifications`)
+
+        const data = await response.json()
+
+        return data
+    } catch (error) {
+        console.log(error?.message)
+        return error
+    }
+}
+
 export default {
     getUsers,
     deleteUser,
     updateUser,
     getUserById,
-    getUserAccounts
+    getUserAccounts,
+    getUserNotifications
 }

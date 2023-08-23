@@ -9,7 +9,7 @@ export const GET = async (request, { params }) => {
         const currency = await Currency.findById(params?.id);
 
         if (!currency)
-            return new Response('Currency not found', {
+            return new Response(JSON.stringify('Currency not found!'), {
                 status: 404
             });
 
@@ -19,7 +19,7 @@ export const GET = async (request, { params }) => {
     } catch (error) {
         console.log(error?.message);
         
-        return new Response('Failed to fetch currency', {
+        return new Response(JSON.stringify('Failed to fetch currency!'), {
             status: 500
         });
     }
@@ -34,7 +34,7 @@ export const PATCH = async (request, { params }) => {
         const currencyExist = await Currency.findById(params?.id);
 
         if (!currencyExist)
-            return new Response('Currency not found', {
+            return new Response(JSON.stringify('Currency not found!'), {
                 status: 404
             });
 
@@ -48,7 +48,7 @@ export const PATCH = async (request, { params }) => {
     } catch (error) {
         console.log(error?.message);
         
-        return new Response('Failed to update currency', {
+        return new Response(JSON.stringify('Failed to update currency!'), {
             status: 500
         });
     }
@@ -60,13 +60,13 @@ export const DELETE = async (request, { params }) => {
 
         await Currency.findByIdAndDelete(params?.id);
 
-        return new Response('Currency deleted', {
+        return new Response(JSON.stringify('Currency deleted!'), {
             status: 200
         });
     } catch (error) {
         console.log(error?.message)
         
-        return new Response('Failed to delete currency', {
+        return new Response(JSON.stringify('Failed to delete currency!'), {
             status: 500
         });
     }

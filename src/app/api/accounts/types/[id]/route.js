@@ -9,7 +9,7 @@ export const GET = async (request, { params }) => {
         const accountType = await AccountType.findById(params?.id);
 
         if (!accountType)
-            return new Response('AccountType not found!', {
+            return new Response(JSON.stringify('Account type not found!'), {
                 status: 404
             });
 
@@ -19,7 +19,7 @@ export const GET = async (request, { params }) => {
     } catch (error) {
         console.log(error?.message)
         
-        return new Response('Failed to fetch account type!', {
+        return new Response(JSON.stringify('Failed to fetch account type!'), {
             status: 500
         })
     }
@@ -34,7 +34,7 @@ export const PATCH = async (request, { params }) => {
         const accountExist = await AccountType.findById(params?.id);
 
         if (!accountExist)
-            return new Response('account type not found', {
+            return new Response(JSON.stringify('Account type not found!'), {
                 status: 404
             });
 
@@ -48,7 +48,7 @@ export const PATCH = async (request, { params }) => {
     } catch (error) {
         console.log(error?.message)
         
-        return new Response('Failed to update account type!', {
+        return new Response(JSON.stringify('Failed to update account type!'), {
             status: 500
         })
     }
@@ -60,13 +60,13 @@ export const DELETE = async (request, { params }) => {
 
         await AccountType.findByIdAndDelete(params?.id)
 
-        return new Response('Account type deleted!', {
+        return new Response(JSON.stringify('Account type deleted!'), {
             status: 200
         })
     } catch (error) {
         console.log(error?.message)
         
-        return new Response('Failed to delete account type!', {
+        return new Response(JSON.stringify('Failed to delete account type!'), {
             status: 500
         })
     }

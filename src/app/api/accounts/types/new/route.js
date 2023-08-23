@@ -20,7 +20,7 @@ export const POST = async (request) => {
     } catch (error) {
         console.log(error?.message);
         
-        return new Response('Failed to create a new account type', {
+        return new Response(JSON.stringify('Failed to create a new account type'), {
             status: 500
         });
     }

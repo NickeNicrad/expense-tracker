@@ -21,7 +21,7 @@ export const GET = async (request, { params }) => {
     } catch (error) {
         console.log(error);
         
-        return new Response('Failed to fetch user accounts', {
+        return new Response(JSON.stringify('Failed to fetch user accounts'), {
             status: 500
         });
     }

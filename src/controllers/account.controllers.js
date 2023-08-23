@@ -2,6 +2,7 @@ const createAccount = async ({
     name,
     type,
     owner,
+    limit,
     balance,
     currency
 }) => {
@@ -12,6 +13,7 @@ const createAccount = async ({
                 name,
                 type,
                 owner,
+                limit,
                 balance,
                 currency
             })
@@ -29,6 +31,7 @@ const updateAccount = async ({
     name,
     type,
     owner,
+    limit,
     balance,
     currency
 }) => {
@@ -39,14 +42,13 @@ const updateAccount = async ({
                 name,
                 type,
                 owner,
+                limit,
                 balance,
                 currency
             })
         })
 
-        const data = await response.json()
-
-        return data
+        return response
     } catch (error) {
         console.log(error?.message)
         return error

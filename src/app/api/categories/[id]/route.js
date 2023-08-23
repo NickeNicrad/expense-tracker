@@ -9,7 +9,7 @@ export const GET = async (request, { params }) => {
         const category = await Category.findById(params?.id)
 
         if (!category)
-            return new Response('Category not found', {
+            return new Response(JSON.stringify('Category not found'), {
                 status: 404
             })
 
@@ -19,7 +19,7 @@ export const GET = async (request, { params }) => {
     } catch (error) {
         console.log(error?.message)
         
-        return new Response('Failed to fetch category', {
+        return new Response(JSON.stringify('Failed to fetch category'), {
             status: 500
         })
     }
@@ -34,7 +34,7 @@ export const PATCH = async (request, { params }) => {
         const accountExist = await Category.findById(params?.id);
 
         if (!accountExist)
-            return new Response('Category not found', {
+            return new Response(JSON.stringify('Category not found'), {
                 status: 404
             });
 
@@ -52,7 +52,7 @@ export const PATCH = async (request, { params }) => {
     } catch (error) {
         console.log(error?.message);
         
-        return new Response('Failed to update category', {
+        return new Response(JSON.stringify('Failed to update category'), {
             status: 500
         });
     }
@@ -70,7 +70,7 @@ export const DELETE = async (request, { params }) => {
     } catch (error) {
         console.log(error?.message)
         
-        return new Response('Failed to delete category', {
+        return new Response(JSON.stringify('Failed to delete category'), {
             status: 500
         });
     }

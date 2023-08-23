@@ -19,7 +19,7 @@ export const GET = async (request, { params }) => {
     } catch (error) {
         console.log(error);
         
-        return new Response('Failed to fetch subcategories', {
+        return new Response(JSON.stringify('Failed to fetch subcategories'), {
             status: 500
         });
     }
