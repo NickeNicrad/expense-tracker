@@ -10,7 +10,7 @@ npm install
 
 then
 
-npm run dev
+npx run dev
 # or
 yarn dev
 # or
